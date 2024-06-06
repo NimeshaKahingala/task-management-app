@@ -1,23 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
+import TodoList from './components/TodoList';
+import AddTodo from './components/AddTodo';
 
 function App() {
+  const [todoList, setTodoList] = useState([{ id: 1, todoText: "text1", isChecked: true }, { id: 2, todoText: "text2", isChecked: false }, { id: 3, todoText: "text3", isChecked: false }, { id: 4, todoText: "text4", isChecked: true }]);
+
+  const addTodo = (newTodo)=> {
+    const newTodoList = [...todoList, newTodo];
+    setTodoList(newTodoList);
+  }
+
+  const handleUpdateTodo = (updatedTodo) => {
+    const index = todoList.findIndex((todo)=> {
+      return updatedTodo.id === todo.id;
+    });
+    const update= [...todoList.slice(0,index),updatedTodo,...todoList.slice(index+1)];
+    setTodoList(update);
+  }
+
+  const deleteTodo = (todoId)=> {
+    console.log("id",todoId);
+    const index = todoList.findIndex((todo)=> {
+      return todoId === todo.id;
+    });
+
+    const deleteTodoList = [...todoList.slice(0,index),...todoList.slice(index+1)];
+    setTodoList(deleteTodoList);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AddTodo addTodo={addTodo}/>
+      <TodoList todoList={todoList} handleUpdateTodo={handleUpdateTodo} deleteTodo={deleteTodo}/>
     </div>
   );
 }
