@@ -14,6 +14,7 @@ const store = configureStore({
         const updatedMiddleware= middleware.concat(logger);
         console.log("updatedMiddleware", updatedMiddleware);
         return updatedMiddleware;
+        
     }
 });
 
