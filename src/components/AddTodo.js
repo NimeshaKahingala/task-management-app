@@ -1,11 +1,15 @@
-import React,{useState} from "react";
+import React,{useState,useContext} from "react";
+import { TodoContext } from "../context/TodoContext";
 
 function AddTodo(props) {
+
+    const {addTodo} = useContext(TodoContext);
+
     const [newText,setNewText] = useState("");
 
     function handleAddClick() {
         const newTodo = {id:Date.now(), todoText:newText, isChecked:false};
-        props.addTodo(newTodo);
+        addTodo(newTodo);
         setNewText("");
     }
 

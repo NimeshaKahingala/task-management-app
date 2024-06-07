@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import TodoItem from "./TodoItem";
+import { TodoContext } from "../context/TodoContext";
 
 function TodoList(props) {
-    const todoArray = props.todoList.map((todo) => {
+
+    const {todoList} = useContext(TodoContext);
+
+    const todoArray = todoList.map((todo) => {
 
         return (
-            <TodoItem todoItem={todo} key={todo.id} handleUpdateTodo={props.handleUpdateTodo} deleteTodo={props.deleteTodo}/>
+            <TodoItem todoItem={todo} key={todo.id}/>
         )
     })
 

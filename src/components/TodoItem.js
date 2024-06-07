@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { TodoContext } from "../context/TodoContext";
 
 function TodoItem(props) {
+
+    const {handleUpdateTodo, deleteTodo} = useContext(TodoContext);
 
     const [isBtnChecked, setIsBtnChecked] = useState(props.todoItem.isChecked);
     const [isUpdate, setIsUpdate] = useState(false);
@@ -8,7 +11,7 @@ function TodoItem(props) {
 
     function handleSave() {
         const updatedTodo = { ...props.todoItem, todoText: updatedText, isChecked: isBtnChecked };
-        props.handleUpdateTodo(updatedTodo);
+        handleUpdateTodo(updatedTodo);
         setIsUpdate(false);
     }
 
@@ -19,7 +22,7 @@ function TodoItem(props) {
     }
 
     function handleDelete() {
-        props.deleteTodo(props.todoItem.id);
+        deleteTodo(props.todoItem.id);
     }
 
 
