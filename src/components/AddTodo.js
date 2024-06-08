@@ -1,11 +1,15 @@
 import React,{useState} from "react";
+import { useDispatch } from "react-redux";
+import {addTodo} from "../slice/todoSlice";
 
 function AddTodo(props) {
+    const dispatch = useDispatch();
+
     const [newText,setNewText] = useState("");
 
     function handleAddClick() {
         const newTodo = {id:Date.now(), todoText:newText, isChecked:false};
-        props.addTodo(newTodo);
+       dispatch(addTodo(newTodo));
         setNewText("");
     }
 

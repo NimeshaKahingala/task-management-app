@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import {updateTodo,deleteTodo} from "../slice/todoSlice";
 
 function TodoItem(props) {
+
+    const dispatch = useDispatch();
 
     const [isBtnChecked, setIsBtnChecked] = useState(props.todoItem.isChecked);
     const [isUpdate, setIsUpdate] = useState(false);
@@ -8,7 +12,7 @@ function TodoItem(props) {
 
     function handleSave() {
         const updatedTodo = { ...props.todoItem, todoText: updatedText, isChecked: isBtnChecked };
-        props.handleUpdateTodo(updatedTodo);
+        dispatch(updateTodo(updatedTodo))
         setIsUpdate(false);
     }
 
@@ -16,10 +20,6 @@ function TodoItem(props) {
         setUpdatedText(props.todoItem.todoText);
         setIsBtnChecked(props.todoItem.isChecked);
         setIsUpdate(false);
-    }
-
-    function handleDelete() {
-        props.deleteTodo(props.todoItem.id);
     }
 
 
@@ -37,7 +37,7 @@ function TodoItem(props) {
                     <button onClick={handleCancel}>Cancel</button>
                 </>
                     : <button onClick={() => setIsUpdate(true)}>Update</button>}
-                <button onClick={handleDelete}>Delete</button>
+                <button onClick={()=> dispatch(deleteTodo(props.todoItem.id))}>Delete</button>
 
                 {}
 
